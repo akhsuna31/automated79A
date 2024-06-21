@@ -1,10 +1,20 @@
-<!-- form_submitted.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Form Submitted</title>
-</head>
-<body>
+{% extends 'exam_form/base.html' %}
+
+{% block title %}Form Submitted{% endblock %}
+
+{% block css %}
+<style>
+    .container {
+        margin-top: 50px;
+    }
+    .text-center {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container text-center">
     <h2>Thank you for submitting the form!</h2>
-</body>
-</html>
+</div>
+{% endblock %}

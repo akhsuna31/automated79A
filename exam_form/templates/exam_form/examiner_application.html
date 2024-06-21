@@ -1,15 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Examiner Application Form</title>
-</head>
-<body>
-    <h1>Examiner Application Form</h1>
+{% extends 'base.html' %}
+
+{% block title %}Examiner Application Form{% endblock %}
+
+{% block css %}
+<style>
+    .container {
+        margin-top: 50px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-control {
+        border-radius: 0.25rem;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center">Examiner Application Form</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Submit</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

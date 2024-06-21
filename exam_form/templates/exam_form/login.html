@@ -1,0 +1,59 @@
+{% extends 'exam_form/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block css %}
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+    .card {
+        border: 1px solid;
+        border-radius: 25px;
+        width: 60%;
+        text-align: center;
+    }
+    .error {
+        color: red;
+    }
+    form {
+        padding-bottom: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="center">
+    <div class="card">
+        <div class="card-header" style="border-radius: 25px 25px 0px 0px;">
+            <h1 class="card-title no-padding fs-20" style="text-align: center; color: #000080; font-size: 3rem; padding: 2rem;">Login</h1>
+        </div>
+        <div class="card-body">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
