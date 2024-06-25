@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ExaminerApplicationForm
+from .models import ExaminerApplication
 from .utils import export_to_google_sheets
 import logging
 
@@ -52,38 +53,38 @@ def logout_view(request):
 
 @login_required(login_url="/login/")
 def dashboard_view(request):
-    if request.method == 'POST':
-        form = ExaminerApplicationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('dashboard')
-    else:
-        form = ExaminerApplicationForm()
+    try:
+        application = ExaminerApplication.objects.get(user=request.user)
+    except ExaminerApplication.DoesNotExist:
+        application = None
 
-    return render(request, "exam_form/dashboard.html", {'form': form})
+    return render(request, "exam_form/dashboard.html", {'application': application, 'user': request.user})
+
 
 @login_required(login_url="/login/")
 def examiner_application_view(request):
+    try:
+        application = ExaminerApplication.objects.get(user=request.user)
+    except ExaminerApplication.DoesNotExist:
+        application = None
+
+    if application and not application.can_edit:
+        messages.error(request, "You cannot edit the application at this time.")
+        return redirect('dashboard')
+
     if request.method == 'POST':
-        form = ExaminerApplicationForm(request.POST, request.FILES)
+        form = ExaminerApplicationForm(request.POST, request.FILES, instance=application)
         if form.is_valid():
-            application = form.save()
-            data = [
-                application.department_name, application.address, application.contact_details,
-                application.contact_person_name, application.designation, application.mobile_phone,
-                application.email, application.activities_since, application.computer_forensics,
-                application.network_forensics, application.mobile_devices_forensics,
-                application.digital_video_image_cctv_forensics, application.digital_audio_forensics,
-                application.device_specific_forensics, application.digital_equipment_machines,
-                application.any_other_forensics, application.detailed_description,
-                application.lab_area, application.fire_resistant_cupboards, application.work_desks,
-                application.power_backup, application.expert_opinions_last_three_years
-            ]
-            #export_to_google_sheets(data)
-            return redirect('form_submitted')
+            app = form.save(commit=False)
+            app.user = request.user
+            app.save()
+            messages.success(request, "Application submitted successfully.")
+            return redirect('dashboard')
     else:
-        form = ExaminerApplicationForm()
+        form = ExaminerApplicationForm(instance=application)
+
     return render(request, 'exam_form/examiner_application.html', {'form': form})
+
 
 @login_required(login_url="/login/")
 def form_submitted_view(request):

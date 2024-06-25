@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'exam_form/base.html' %}
 
 {% block title %}Examiner Application Form{% endblock %}
 
@@ -12,10 +12,29 @@
     }
     .form-control {
         border-radius: 0.25rem;
+        width: 70%; /* Adjusted width */
+        padding: 5px; /* Adjusted padding */
+    }
+    .form-control-file {
+        width: 70%; /* Adjusted width for file inputs */
+    }
+    .form-check-input {
+        position: absolute;
+        margin-top: .3rem;
+        margin-left: 0.75rem;
+    }
+    .form-heading {
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        font-weight: bold;
     }
     .btn-primary {
         background-color: #007bff;
         border-color: #007bff;
+    }
+    label {
+        font-weight: bold;
     }
 </style>
 {% endblock %}
@@ -25,10 +44,197 @@
     <h1 class="text-center">Examiner Application Form</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+
+
+        <div class="form-heading">Contact Information</div>
+        <div class="form-group">
+            {{ form.department_name.label_tag }}
+            {{ form.department_name }}
+        </div>
+        <div class="form-group">
+            {{ form.address.label_tag }}
+            {{ form.address }}
+        </div>
+        <div class="form-group">
+            {{ form.contact_details.label_tag }}
+            {{ form.contact_details }}
+        </div>
+        <div class="form-group">
+            {{ form.profile_attachment.label_tag }}
+            {{ form.profile_attachment }}
+        </div>
+
+        <div class="form-heading">Personal Information</div>
+        <div class="form-group">
+            {{ form.contact_person_name.label_tag }}
+            {{ form.contact_person_name }}
+        </div>
+        <div class="form-group">
+            {{ form.designation.label_tag }}
+            {{ form.designation }}
+        </div>
+        <div class="form-group">
+            {{ form.mobile_phone.label_tag }}
+            {{ form.mobile_phone }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+
+        <div class="form-heading">Expertise Areas</div>
+        <div class="form-group">
+            {{ form.activities_since.label_tag }}
+            {{ form.activities_since }}
+        </div>
+        <div class="form-group">
+            {{ form.computer_forensics.label_tag }}
+            {{ form.computer_forensics }}
+        </div>
+        <div class="form-group">
+            {{ form.network_forensics.label_tag }}
+            {{ form.network_forensics }}
+        </div>
+        <div class="form-group">
+            {{ form.mobile_devices_forensics.label_tag }}
+            {{ form.mobile_devices_forensics }}
+        </div>
+        <div class="form-group">
+            {{ form.digital_video_image_cctv_forensics.label_tag }}
+            {{ form.digital_video_image_cctv_forensics }}
+        </div>
+        <div class="form-group">
+            {{ form.digital_audio_forensics.label_tag }}
+            {{ form.digital_audio_forensics }}
+        </div>
+        <div class="form-group">
+            {{ form.device_specific_forensics.label_tag }}
+            {{ form.device_specific_forensics }}
+        </div>
+        <div class="form-group">
+            {{ form.digital_equipment_machines.label_tag }}
+            {{ form.digital_equipment_machines }}
+        </div>
+        <div class="form-group">
+            {{ form.any_other_forensics.label_tag }}
+            {{ form.any_other_forensics }}
+        </div>
+
+        <div class="form-heading">Detailed Descriptions</div>
+        <div class="form-group">
+            {{ form.detailed_description.label_tag }}
+            {{ form.detailed_description }}
+        </div>
+        <div class="form-group">
+            {{ form.organization_chart.label_tag }}
+            {{ form.organization_chart }}
+        </div>
+        <div class="form-group">
+            {{ form.quality_manual.label_tag }}
+            {{ form.quality_manual }}
+        </div>
+        <div class="form-group">
+            {{ form.quality_manual_revision_date.label_tag }}
+            {{ form.quality_manual_revision_date }}
+        </div>
+        <div class="form-group">
+            {{ form.quality_manual_details.label_tag }}
+            {{ form.quality_manual_details }}
+        </div>
+
+        <div class="form-heading">Standard Operating Procedures (SOPs)</div>
+        <div class="form-group">
+            {{ form.sop_case_acceptance.label_tag }}
+            {{ form.sop_case_acceptance }}
+        </div>
+        <div class="form-group">
+            {{ form.sop_handling_exhibits.label_tag }}
+            {{ form.sop_handling_exhibits }}
+        </div>
+        <div class="form-group">
+            {{ form.sop_security_preservation.label_tag }}
+            {{ form.sop_security_preservation }}
+        </div>
+        <div class="form-group">
+            {{ form.sop_analysis.label_tag }}
+            {{ form.sop_analysis }}
+        </div>
+        <div class="form-group">
+            {{ form.sop_report_format.label_tag }}
+            {{ form.sop_report_format }}
+        </div>
+        <div class="form-group">
+            {{ form.sop_tools_testing.label_tag }}
+            {{ form.sop_tools_testing }}
+        </div>
+        <div class="form-group">
+            {{ form.sop_training.label_tag }}
+            {{ form.sop_training }}
+        </div>
+        <div class="form-group">
+            {{ form.sop_internal_audit.label_tag }}
+            {{ form.sop_internal_audit }}
+        </div>
+        <div class="form-group">
+            {{ form.sop_other_procedures.label_tag }}
+            {{ form.sop_other_procedures }}
+        </div>
+
+        <div class="form-heading">Lab Facilities</div>
+        <div class="form-group">
+            {{ form.lab_area.label_tag }}
+            {{ form.lab_area }}
+        </div>
+        <div class="form-group">
+            {{ form.fire_resistant_cupboards.label_tag }}
+            {{ form.fire_resistant_cupboards }}
+        </div>
+        <div class="form-group">
+            {{ form.work_desks.label_tag }}
+            {{ form.work_desks }}
+        </div>
+        <div class="form-group">
+            {{ form.power_backup.label_tag }}
+            {{ form.power_backup }}
+        </div>
+        <div class="form-group">
+            {{ form.expert_opinions_last_three_years.label_tag }}
+            {{ form.expert_opinions_last_three_years }}
+        </div>
+
+        {{ form.non_field_errors }}
+        <table>
+            {% for field in form %}
+                <tr>
+                    <td>{{ field.label_tag }}</td>
+                    <td>
+                        {{ field }}
+                        {% if field.errors %}
+                            <ul class="errorlist">
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
+    {% if form.errors %}
+        <div class="errors">
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

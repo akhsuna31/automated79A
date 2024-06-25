@@ -46,8 +46,36 @@
                 <form id="examiner-application-form" method="post" enctype="multipart/form-data" action="{% url 'examiner_application' %}">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">Submit</button>
+
                 </form>
+                {% if application %}
+                    <div class="status">
+                        <p><strong>Status:</strong> {{ application.is_verified|yesno:"Verified,Not Verified" }}</p>
+                    </div>
+
+                    <div class="application-details">
+                        <h2>Application Details</h2>
+                        <p><strong>Department Name:</strong> {{ application.department_name }}</p>
+                        <p><strong>Address:</strong> {{ application.address }}</p>
+                        <p><strong>Contact:</strong> {{ application.contact_details }}</p>
+                        <p><strong>Profile Attachment:</strong> {{ application.profile_attachment }}</p>
+                        <p><strong>Contact Person:</strong> {{ application.contact_person_name }}</p>
+                        <p><strong>Designation:</strong> {{ application.designation }}</p>
+                        <p><strong>Mobile Phone:</strong> {{ application.mobile_phone }}</p>
+                        <p><strong>Email:</strong> {{ application.email }}</p>
+
+                        <!-- Add other application fields here -->
+                    </div>
+
+                    {% if application.can_edit %}
+                        <div class="text-center btn-edit">
+                            <a href="{% url 'examiner_application' %}" class="btn btn-primary">Edit Application</a>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <p>You have not submitted an application yet.</p>
+                    <a href="{% url 'examiner_application' %}" class="btn btn-primary">Submit Application</a>
+                {% endif %}
                 <div class="loader-container">
                     <div class="loader hidden"></div>
                 </div>
