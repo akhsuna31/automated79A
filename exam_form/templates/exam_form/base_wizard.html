@@ -1,0 +1,112 @@
+{% extends 'exam_form/base.html' %}
+
+{% block title %}Application Form{% endblock %}
+
+{% block css %}
+<style>
+    .container {
+        margin-top: 50px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .text-center {
+        text-align: center;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin: 10px 0 5px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    textarea {
+        height: 80px;
+        resize: vertical;
+    }
+    button {
+        display: inline-block;
+        width: 48%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        margin-right: 4%;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+    .required {
+        color: red;
+    }
+    .form-group {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>{% block form_title %}Application Form{% endblock %}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ wizard.management_form }}
+        {{ form.as_p }}
+        <div class="form-group">
+            {% if wizard.steps.prev %}
+                <button type="button" class="btn btn-secondary" onclick="window.history.back();">Previous</button>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">
+                {% if wizard.steps.next %}Next{% else %}Submit{% endif %}
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        dateInputs.forEach(function(input) {
+            input.setAttribute('type', 'text');
+            input.setAttribute('class', 'datepicker');
+        });
+
+        const requiredFields = document.querySelectorAll('[required]');
+        requiredFields.forEach(function(field) {
+            const label = field.previousElementSibling;
+            if (label) {
+                label.innerHTML += ' <span class="required">*</span>';
+            }
+        });
+    });
+</script>
+{% endblock %}
