@@ -1,0 +1,51 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+<style>
+    .dashboard-cards {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+    .card {
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        width: 30%;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+    .card h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .card p {
+        font-size: 36px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .card:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+</style>
+
+<div class="dashboard-cards">
+    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_verified_exact=1&is_submitted_exact=1" class="card" style="background-color: #4CAF50; color: white;">
+        <h2>Total Filled & Verified Forms</h2>
+        <p>{{ verified_count }}</p>
+    </a>
+    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_verified_exact=0&is_submitted_exact=1" class="card" style="background-color: #FF9800; color: white;">
+        <h2>Partially Filled Forms</h2>
+        <p>{{ partial_filled_count }}</p>
+    </a>
+    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_verified_exact=0&is_submitted_exact=1" class="card" style="background-color: #F44336; color: white;">
+        <h2>Filled But Not Verified Forms</h2>
+        <p>{{ unverified_count }}</p>
+    </a>
+</div>
+
+{{ block.super }}
+{% endblock %}

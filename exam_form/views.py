@@ -7,10 +7,11 @@ from django.views.decorators.csrf import csrf_exempt
 #from .forms import ExaminerApplicationForm
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
-from .models import ExaminerApplication
+from .models import ExaminerApplication, Officer
 from .utils import export_to_google_sheets
 from django.urls import reverse
 from formtools.wizard.views import SessionWizardView
+#from django.contrib.admin.views.decorators import staff_member_required
 import logging
 from .forms import (
     ContactInformationForm, PersonalInformationForm, ExpertiseAreasForm,
@@ -19,6 +20,21 @@ from .forms import (
 
 logger = logging.getLogger(__name__)
 
+'''@staff_member_required
+def custom_admin_dashboard(request):
+    verified_applications = ExaminerApplication.objects.filter(is_verified=True).count()
+    incomplete_applications = ExaminerApplication.objects.filter(is_submitted=False).count()
+    pending_applications = ExaminerApplication.objects.filter(is_verified=False, is_submitted=True).count()
+    officers = Officer.objects.all()
+
+    context = {
+        'verified_applications': verified_applications,
+        'incomplete_applications': incomplete_applications,
+        'pending_applications': pending_applications,
+        'officers': officers,
+    }
+    return render(request, 'admin/index.html', context)
+'''
 
 class ExaminerApplicationWizard(SessionWizardView):
     form_list = [

@@ -55,6 +55,7 @@ class ExaminerApplication(models.Model):
 
     is_verified = models.BooleanField(default=False)
     can_edit = models.BooleanField(default=False)
+    is_submitted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.department_name

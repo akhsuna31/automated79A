@@ -19,11 +19,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+#from exam_form.views import custom_admin_dashboard
 
+'''try:
+    from exam_form.views import custom_admin_dashboard
+except ModuleNotFoundError as e:
+    import logging
+    logging.error("Module not found: %s", e)
+    custom_admin_dashboard = None
+'''
+#admin.site.index_template = 'admin/index.html'
 
 urlpatterns = [
-    path('', include('exam_form.urls')),
     path('admin/', admin.site.urls),
+    #path('admin/dashboard/', custom_admin_dashboard, name='custom_admin_dashboard'),
+    path('', include('exam_form.urls')),
 ]
 
 if settings.DEBUG:

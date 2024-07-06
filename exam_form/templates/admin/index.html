@@ -1,0 +1,53 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Real-time Work Statistics Boxes -->
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Verified Applications</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ verified_applications }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Incomplete Applications</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ incomplete_applications }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">Pending Applications</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ pending_applications }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Officers Panel -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Officers Panel</div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for officer in officers %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ officer.name }}
+                            <span class="badge badge-primary badge-pill">{{ officer.rank }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
