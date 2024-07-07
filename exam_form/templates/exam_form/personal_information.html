@@ -5,15 +5,30 @@
 {% block form_title %}Personal Information{% endblock %}
 
 {% block form_content %}
-<label for="dob">Date of Birth <span class="required">*</span></label>
-<input type="date" id="dob" name="dob" required>
+    {{ wizard.form.non_field_errors }}
 
-<label for="address">Address <span class="required">*</span></label>
-<input type="text" id="address" name="address" required>
+    <div>
+        <label for="id_contact_person_name">Contact Person Name <span class="required">*</span></label>
+        {{ wizard.form.contact_person_name.errors }}
+        {{ wizard.form.contact_person_name }}
+    </div>
 
-<label for="city">City <span class="required">*</span></label>
-<input type="text" id="city" name="city" required>
+    <div>
+        <label for="id_designation">Designation <span class="required">*</span></label>
+        {{ wizard.form.designation.errors }}
+        {{ wizard.form.designation }}
+    </div>
 
-<label for="country">Country <span class="required">*</span></label>
-<input type="text" id="country" name="country" required>
+    <div>
+        <label for="id_mobile_phone">Mobile Phone <span class="required">*</span></label>
+        {{ wizard.form.mobile_phone.errors }}
+        {{ wizard.form.mobile_phone }}
+    </div>
+
+    <div>
+        <label for="id_email">Email <span class="required">*</span></label>
+        {{ wizard.form.email.errors }}
+        {{ wizard.form.email }}
+    </div>
+
 {% endblock %}

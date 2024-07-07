@@ -5,15 +5,60 @@
 {% block form_title %}Contact Information{% endblock %}
 
 {% block form_content %}
-<label for="first_name">First Name <span class="required">*</span></label>
-<input type="text" id="first_name" name="first_name" required>
+    {{ wizard.form.non_field_errors }}
 
-<label for="last_name">Last Name <span class="required">*</span></label>
-<input type="text" id="last_name" name="last_name" required>
+    <div>
+        <label for="id_department_name">Department Name <span class="required">*</span></label>
+        {{ wizard.form.department_name.errors }}
+        {{ wizard.form.department_name }}
+    </div>
 
-<label for="email">Email <span class="required">*</span></label>
-<input type="email" id="email" name="email" required>
+    <div>
+        <label for="id_address">Address <span class="required">*</span></label>
+        {{ wizard.form.address.errors }}
+        {{ wizard.form.address }}
+    </div>
 
-<label for="phone">Phone <span class="required">*</span></label>
-<input type="tel" id="phone" name="phone" required>
+    <div>
+        <label for="id_contact_details">Contact Details <span class="required">*</span></label>
+        {{ wizard.form.contact_details.errors }}
+        {{ wizard.form.contact_details }}
+    </div>
+
+    <div>
+        <label for="id_profile_attachment">Profile Attachment</label>
+        {{ wizard.form.profile_attachment.errors }}
+        {{ wizard.form.profile_attachment }}
+    </div>
+
+    <div>
+        <label for="id_contact_person_name">Contact Person Name <span class="required">*</span></label>
+        {{ wizard.form.contact_person_name.errors }}
+        {{ wizard.form.contact_person_name }}
+    </div>
+
+    <div>
+        <label for="id_designation">Designation <span class="required">*</span></label>
+        {{ wizard.form.designation.errors }}
+        {{ wizard.form.designation }}
+    </div>
+
+    <div>
+        <label for="id_mobile_phone">Mobile Phone <span class="required">*</span></label>
+        {{ wizard.form.mobile_phone.errors }}
+        {{ wizard.form.mobile_phone }}
+    </div>
+
+    <div>
+        <label for="id_email">Email <span class="required">*</span></label>
+        {{ wizard.form.email.errors }}
+        {{ wizard.form.email }}
+    </div>
+
+    <div>
+        <label for="id_activities_since">Electronic Evidence Examination related activities are being carried out since <span class="required">*</span></label>
+        <input type="date" id="id_activities_since" name="activities" required>
+        {{ wizard.form.activities_since.errors }}
+
+    </div>
 {% endblock %}

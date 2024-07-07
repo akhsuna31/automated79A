@@ -11,7 +11,6 @@ from .models import ExaminerApplication, Officer
 from .utils import export_to_google_sheets
 from django.urls import reverse
 from formtools.wizard.views import SessionWizardView
-#from django.contrib.admin.views.decorators import staff_member_required
 import logging
 from .forms import (
     ContactInformationForm, PersonalInformationForm, ExpertiseAreasForm,
@@ -19,22 +18,6 @@ from .forms import (
 )
 
 logger = logging.getLogger(__name__)
-
-'''@staff_member_required
-def custom_admin_dashboard(request):
-    verified_applications = ExaminerApplication.objects.filter(is_verified=True).count()
-    incomplete_applications = ExaminerApplication.objects.filter(is_submitted=False).count()
-    pending_applications = ExaminerApplication.objects.filter(is_verified=False, is_submitted=True).count()
-    officers = Officer.objects.all()
-
-    context = {
-        'verified_applications': verified_applications,
-        'incomplete_applications': incomplete_applications,
-        'pending_applications': pending_applications,
-        'officers': officers,
-    }
-    return render(request, 'admin/index.html', context)
-'''
 
 class ExaminerApplicationWizard(SessionWizardView):
     form_list = [
@@ -58,6 +41,24 @@ class ExaminerApplicationWizard(SessionWizardView):
     def get_template_names(self):
         return [self.templates[self.steps.current]]
 
+    def post(self, *args, **kwargs):
+        logger.info(f"POST request in step {self.steps.current}")
+        # Update the partial_filled count when the "Next" button is clicked
+        response = super().post(*args, **kwargs)
+        if self.steps.current != self.steps.last:
+            user = self.request.user
+            defaults = {
+                'activities_since': None,
+                'fire_resistant_cupboards': False,
+                'work_desks': False,
+                'expert_opinions_last_three_years': False,
+                # Add other fields with default values here if necessary
+            }
+            application, created = ExaminerApplication.objects.get_or_create(user=user, defaults=defaults)
+            if created or not application.is_submitted:
+                ExaminerApplication.objects.filter(user=user).update(is_submitted=False)
+        return response
+
     def done(self, form_list, **kwargs):
         # Save all form data to a new ExaminerApplication instance
         user = self.request.user
@@ -65,7 +66,12 @@ class ExaminerApplicationWizard(SessionWizardView):
         for form in form_list:
             data.update(form.cleaned_data)
 
-        application = ExaminerApplication.objects.create(user=user, **data)
+        application = ExaminerApplication.objects.update_or_create(user=user, defaults=data)[0]
+        application.is_submitted = True
+        application.save()
+
+        # Update counts for partial_filled and filled_not_verified
+        ExaminerApplication.objects.filter(user=user).update(is_verified=False)
         messages.success(self.request, "Application submitted successfully.")
         return redirect('dashboard')
 
@@ -118,32 +124,6 @@ def dashboard_view(request):
         application = None
 
     return render(request, "exam_form/dashboard.html", {'application': application, 'user': request.user})
-
-
-'''@login_required(login_url="/login/")
-def examiner_application_view(request):
-    try:
-        application = ExaminerApplication.objects.get(user=request.user)
-    except ExaminerApplication.DoesNotExist:
-        application = None
-
-    if application and not application.can_edit:
-        messages.error(request, "You cannot edit the application at this time.")
-        return redirect('dashboard')
-
-    if request.method == 'POST':
-        form = ExaminerApplicationForm(request.POST, request.FILES, instance=application)
-        if form.is_valid():
-            app = form.save(commit=False)
-            app.user = request.user
-            app.save()
-            messages.success(request, "Application submitted successfully.")
-            return redirect('dashboard')
-    else:
-        form = ExaminerApplicationForm(instance=application)
-
-    return render(request, 'exam_form/examiner_application.html', {'form': form})
-'''
 
 @login_required(login_url="/login/")
 def form_submitted_view(request):

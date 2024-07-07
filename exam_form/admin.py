@@ -21,7 +21,7 @@ class ExaminerApplicationAdmin(admin.ModelAdmin):
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
 
-        total_filled_verified = ExaminerApplication.objects.filter(is_verified=True).count() #is_submitted=True
+        total_filled_verified = ExaminerApplication.objects.filter(is_verified=True, is_submitted=True).count() #is_submitted=True
         partial_filled = ExaminerApplication.objects.filter(is_verified=False, is_submitted=False).count()
         filled_not_verified = ExaminerApplication.objects.filter(is_verified=False, is_submitted=True).exclude(detailed_description='').count()
 

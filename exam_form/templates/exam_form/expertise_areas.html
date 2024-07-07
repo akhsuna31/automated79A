@@ -4,8 +4,174 @@
 
 {% block form_title %}Expertise Areas{% endblock %}
 
+{% block extra_head %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            console.log("Document ready!");
+            // Hide all additional text boxes initially
+            $('.additional-textbox').hide();
+
+            // Show/hide additional text boxes based on checkbox state
+            $('input[type="checkbox"]').change(function() {
+                var checkboxId = $(this).attr('id');
+                var textboxId = checkboxId + '-textbox';
+
+                console.log("Checkbox ID: ", checkboxId);
+                console.log("Textbox ID: ", textboxId);
+
+                if ($(this).is(':checked')) {
+                    $('#' + textboxId).show();
+                } else {
+                    $('#' + textboxId).hide();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block form_content %}
-<label for="computer_forensics">computer_forensics<span class="required">*</span></label>
-<input type="checkbox" id="computer_forensics" name="computer_forensics" required>
+    {{ wizard.form.non_field_errors }}
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="id_computer_forensics" style="margin-right: 10px;">Computer Forensics </label>
+            <input type="checkbox" id="id_computer_forensics" name="id_computer_forensics" style="margin-right: 10px;">
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div>
+                <label for="id_computer_forensics-include-textbox" style="display: block;">Include(like: FDD, SSD)</label>
+                <input type="text" id="id_computer_forensics-include-textbox" name="id_computer_forensics_include_textbox" style="width: 100%; padding: 10px;">
+            </div>
+
+            <div>
+                <label for="id_computer_forensics-exclude-textbox" style="display: block;">Exclude(like: FDD, SSD)</label>
+                <input type="text" id="id_computer_forensics-exclude-textbox" name="id_computer_forensics_exclude_textbox" style="width: 100%; padding: 10px;">
+            </div>
+        </div>
+        {{ wizard.form.computer_forensics.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="network_forensics" style="margin-right: 10px;">Network Forensics </label>
+            <input type="checkbox" id="network_forensics" name="network_forensics" style="margin-right: 10px;">
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div>
+                <label for="network_forensics-include-textbox" style="display: block;">Include</label>
+                <input type="text" id="network_forensics-include-textbox" name="network_forensics_include_textbox" style="width: 100%; padding: 10px;">
+            </div>
+
+            <div>
+                <label for="network_forensics-exclude-textbox" style="display: block;">Exclude</label>
+                <input type="text" id="network_forensics-exclude-textbox" name="network_forensics_exclude_textbox" style="width: 100%; padding: 10px;">
+            </div>
+        </div>
+        {{ wizard.form.network_forensics.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="mobile_devices_forensics" style="margin-right: 10px;">Mobile Devices Forensics </label>
+            <input type="checkbox" id="mobile_devices_forensics" name="mobile_devices_forensics" style="margin-right: 10px;">
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div>
+                <label for="mobile_devices_forensics-include-textbox" style="display: block;">Include</label>
+                <input type="text" id="mobile_devices_forensics-include-textbox" name="mobile_devices_forensics_include_textbox" style="width: 100%; padding: 10px;">
+            </div>
+
+            <div>
+                <label for="mobile_devices_forensics-exclude-textbox" style="display: block;">Exclude</label>
+                <input type="text" id="mobile_devices_forensics-exclude-textbox" name="mobile_devices_forensics_exclude_textbox" style="width: 100%; padding: 10px;">
+            </div>
+        </div>
+        {{ wizard.form.mobile_devices_forensics.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="digital_video_image_cctv_forensics" style="margin-right: 10px;">Digital Video/ Image/ CCTV Forensics </label>
+            <input type="checkbox" id="digital_video_image_cctv_forensics" name="digital_video_image_cctv_forensics" style="margin-right: 10px;">
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div>
+                <label for="digital_video_image_cctv_forensics-include-textbox" style="display: block;">Include</label>
+                <input type="text" id="digital_video_image_cctv_forensics-include-textbox" name="digital_video_image_cctv_forensics_include_textbox" style="width: 100%; padding: 10px;">
+            </div>
+
+            <div>
+                <label for="digital_video_image_cctv_forensics-exclude-textbox" style="display: block;">Exclude</label>
+                <input type="text" id="digital_video_image_cctv_forensics-exclude-textbox" name="digital_video_image_cctv_forensics_exclude_textbox" style="width: 100%; padding: 10px;">
+            </div>
+        </div>
+        {{ wizard.form.digital_video_image_cctv_forensics.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="digital_audio_forensics" style="margin-right: 10px;">Digital Audio Forensics </label>
+            <input type="checkbox" id="digital_audio_forensics" name="digital_audio_forensics" style="margin-right: 10px;">
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div>
+                <label for="digital_audio_forensics-include-textbox" style="display: block;">Include</label>
+                <input type="text" id="digital_audio_forensics-include-textbox" name="digital_audio_forensics_include_textbox" style="width: 100%; padding: 10px;">
+            </div>
+
+            <div>
+                <label for="digital_audio_forensics-exclude-textbox" style="display: block;">Exclude</label>
+                <input type="text" id="digital_audio_forensics-exclude-textbox" name="digital_audio_forensics_exclude_textbox" style="width: 100%; padding: 10px;">
+            </div>
+        </div>
+        {{ wizard.form.digital_audio_forensics.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="device_specific_forensics" style="margin-right: 10px;">Device Specific Forensics </label>
+            <input type="checkbox" id="device_specific_forensics" name="device_specific_forensics" style="margin-right: 10px;">
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div>
+                <label for="device_specific_forensics-include-textbox" style="display: block;">Include</label>
+                <input type="text" id="device_specific_forensics-include-textbox" name="device_specific_forensics_include_textbox" style="width: 100%; padding: 10px;">
+            </div>
+
+            <div>
+                <label for="device_specific_forensics-exclude-textbox" style="display: block;">Exclude</label>
+                <input type="text" id="device_specific_forensics-exclude-textbox" name="device_specific_forensics_exclude_textbox" style="width: 100%; padding: 10px;">
+            </div>
+        </div>
+        {{ wizard.form.device_specific_forensics.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="digital_equipment_machines" style="margin-right: 10px;">Digital Equipment/ Machines</label>
+            <input type="checkbox" id="digital_equipment_machines" name="digital_equipment_machines" style="margin-right: 10px;">
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div>
+                <label for="digital_equipment_machines-include-textbox" style="display: block;">Include</label>
+                <input type="text" id="digital_equipment_machines-include-textbox" name="digital_equipment_machines_include_textbox" style="width: 100%; padding: 10px;">
+            </div>
+
+            <div>
+                <label for="digital_equipment_machines-exclude-textbox" style="display: block;">Exclude</label>
+                <input type="text" id="digital_equipment_machines-exclude-textbox" name="digital_equipment_machines_exclude_textbox" style="width: 100%; padding: 10px;">
+            </div>
+        </div>
+        {{ wizard.form.digital_equipment_machines.errors }}
+    </div>
+
+    <div>
+        <label for="any_other_forensics">Any Other Forensics</label>
+        <input type="text" id="any_other_forensics" name="any_other_forensics">
+        {{ wizard.form.any_other_forensics.errors }}
+    </div>
 
 {% endblock %}
+

@@ -2,4 +2,79 @@
 
 {% block title %}SOPs{% endblock %}
 
-{% block form_title %}Do the Quality System have following SOPs{% endblock %}
+{% block form_title %}Do the Quality System have following SOPs corresponding to the scope requested{% endblock %}
+
+{% block form_content %}
+    {{ wizard.form.non_field_errors }}
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="id_sop_case_acceptance" style="margin-right: 10px;">Case Acceptance </label>
+            <input type="checkbox" id="id_sop_case_acceptance" name="id_sop_case_acceptance" style="margin-right: 10px;">
+        </div>
+        {{ wizard.form.sop_case_acceptance.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="id_sop_handling_exhibits" style="margin-right: 10px;">Handling of Exhibits </label>
+            <input type="checkbox" id="id_sop_handling_exhibits" name="id_sop_handling_exhibits" style="margin-right: 10px;">
+        </div>
+        {{ wizard.form.sop_handling_exhibits.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="id_sop_security_preservation" style="margin-right: 10px;">Security and Preservation of Exhibits</label>
+            <input type="checkbox" id="id_sop_security_preservation" name="id_sop_security_preservation" style="margin-right: 10px;">
+        </div>
+        {{ wizard.form.sop_security_preservation.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="id_sop_analysis" style="margin-right: 10px;">Analysis of Exhibits </label>
+            <input type="checkbox" id="id_sop_analysis" name="id_sop_analysis" style="margin-right: 10px;">
+        </div>
+        {{ wizard.form.sop_analysis.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="id_sop_report_format" style="margin-right: 10px;">Electronic Evidence Analysis Report Format </label>
+            <input type="checkbox" id="id_sop_report_format" name="id_sop_report_format" style="margin-right: 10px;">
+        </div>
+        {{ wizard.form.sop_report_format.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="id_sop_tools_testing" style="margin-right: 10px;">Tools and Equipment Testing </label>
+            <input type="checkbox" id="id_sop_tools_testing" name="id_sop_tools_testing" style="margin-right: 10px;">
+        </div>
+        {{ wizard.form.sop_tools_testing.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="id_sop_training" style="margin-right: 10px;">Training </label>
+            <input type="checkbox" id="id_sop_training" name="id_sop_training" style="margin-right: 10px;">
+        </div>
+        {{ wizard.form.sop_training.errors }}
+    </div>
+
+    <div>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <label for="id_sop_internal_audit" style="margin-right: 10px;">Internal Audit reports specific to scope Quality assurance </label>
+            <input type="checkbox" id="id_sop_internal_audit" name="id_sop_internal_audit" style="margin-right: 10px;">
+        </div>
+        {{ wizard.form.sop_internal_audit.errors }}
+    </div>
+
+    <div>
+        <label for="id_sop_other_procedures">Any Other Procedures </label>
+        {{ wizard.form.sop_other_procedures.errors }}
+        {{ wizard.form.sop_other_procedures }}
+    </div>
+
+{% endblock %}

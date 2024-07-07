@@ -13,7 +13,7 @@ class ExaminerApplication(models.Model):
     designation = models.CharField(max_length=255)
     mobile_phone = models.CharField(max_length=20)
     email = models.EmailField()
-    activities_since = models.DateField()
+    activities_since = models.DateField(null=True, blank=True)
 
     # Forensic Investigation Types
     computer_forensics = models.BooleanField(default=False)
@@ -46,12 +46,12 @@ class ExaminerApplication(models.Model):
 
     # Lab Details
     lab_area = models.CharField(max_length=255)
-    fire_resistant_cupboards = models.IntegerField()
-    work_desks = models.IntegerField()
+    fire_resistant_cupboards = models.IntegerField(default=0)
+    work_desks = models.IntegerField(default=0)
     power_backup = models.TextField()
 
     # Expert Opinions
-    expert_opinions_last_three_years = models.IntegerField()
+    expert_opinions_last_three_years = models.IntegerField(default=0)
 
     is_verified = models.BooleanField(default=False)
     can_edit = models.BooleanField(default=False)

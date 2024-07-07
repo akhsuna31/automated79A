@@ -3,3 +3,40 @@
 {% block title %}Detailed Descriptions{% endblock %}
 
 {% block form_title %}Detailed Descriptions{% endblock %}
+
+{% block form_content %}
+    {{ wizard.form.non_field_errors }}
+
+    <div>
+        <label for="id_detailed_description">Detailed organisation Chart as relevant to the scope requested (Parent Lab as well as of the
+Digital Forensic Division) <span class="required">*</span></label>
+        {{ wizard.form.detailed_description.errors }}
+        {{ wizard.form.detailed_description }}
+    </div>
+
+    <div>
+        <label for="id_organization_chart">Organization Chart as relevant to the scope requested</label>
+        {{ wizard.form.organization_chart.errors }}
+        {{ wizard.form.organization_chart }}
+    </div>
+
+    <div>
+        <label for="id_quality_manual">Copy of “Quality Manual” or "Equivalent Document" </label>
+        {{ wizard.form.quality_manual.errors }}
+        {{ wizard.form.quality_manual }}
+    </div>
+
+    <div>
+        <label for="id_quality_manual_revision_date">Quality Manual or Equivalent Document Last Revision Date <span class="required">*</span></label>
+        <input type="date" id="quality_manual_revision_date" name="quality_manual_revision_date" required>
+        {{ wizard.form.quality_manual_revision_date.errors }}
+    </div>
+
+    <div>
+        <label for="id_quality_manual_details">Whether Quality Manual or Equivalent Document address all the details of the scope under
+empanelment(Please indicate details)<span class="required">*</span></label>
+        {{ wizard.form.quality_manual_details.errors }}
+        {{ wizard.form.quality_manual_details }}
+    </div>
+
+{% endblock %}

@@ -78,7 +78,9 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ wizard.management_form }}
-        {{ form.as_p }}
+        {% block form_content %}{% endblock %}
+
+
         <div class="form-group">
             {% if wizard.steps.prev %}
                 <button type="button" class="btn btn-secondary" onclick="window.history.back();">Previous</button>
@@ -105,6 +107,18 @@
             const label = field.previousElementSibling;
             if (label) {
                 label.innerHTML += ' <span class="required">*</span>';
+            }
+        });
+
+        // Automatically save form progress
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function() {
+            if (form.querySelector('[type="submit"]').textContent.trim() === 'Next') {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', form.action, true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                const formData = new FormData(form);
+                xhr.send(new URLSearchParams(formData).toString());
             }
         });
     });

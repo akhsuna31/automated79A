@@ -3,3 +3,42 @@
 {% block title %}Lab Facilities{% endblock %}
 
 {% block form_title %}Lab Facilities{% endblock %}
+
+{% block form_content %}
+    {{ wizard.form.non_field_errors }}
+
+    <div>
+        <label for="lab_area">LAB Area exclusively allocated to Electronic Evidence Laboratory (Range Recommended
+is 48-64 square feet per Experts) <span class="required">*</span></label>
+        {{ wizard.form.lab_area.errors }}
+        {{ wizard.form.lab_area }}
+    </div>
+
+    <div>
+        <label for="fire_resistant_cupboards">No. of Fire Resistant Cupboards / Safes for exclusively reserved for storage of
+original electronic exhibits<span class="required">*</span></label>
+        {{ wizard.form.fire_resistant_cupboards.errors }}
+        {{ wizard.form.fire_resistant_cupboards }}
+    </div>
+
+    <div>
+        <label for="work_desks">No. of Work desks in rooms/cabins for digital forensics related work <span class="required">*</span></label>
+        {{ wizard.form.work_desks.errors }}
+        {{ wizard.form.work_desks }}
+    </div>
+
+    <div>
+        <label for="power_backup">Power Backup and other infrastructure details including Heating, Ventilation and Air
+Conditioning (HVAC) <span class="required">*</span></label>
+        {{ wizard.form.power_backup.errors }}
+        {{ wizard.form.power_backup }}
+    </div>
+
+    <div>
+        <label for="expert_opinions_last_three_years">Number of Expert Opinions provided by the Department/Agency related to electronic
+evidence in last three years<span class="required">*</span></label>
+        {{ wizard.form.expert_opinions_last_three_years.errors }}
+        {{ wizard.form.expert_opinions_last_three_years }}
+    </div>
+
+{% endblock %}
