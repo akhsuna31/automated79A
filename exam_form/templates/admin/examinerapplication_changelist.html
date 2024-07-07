@@ -33,16 +33,16 @@
 </style>
 
 <div class="dashboard-cards">
-    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_verified_exact=1&is_submitted_exact=1" class="card" style="background-color: #4CAF50; color: white;">
-        <h2>Total Filled & Verified Forms</h2>
+    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_submitted__exact=True&is_verified__exact=True" class="card" style="background-color: #4CAF50; color: white;">
+        <h2>Total Filled & Verified Applications</h2>
         <p>{{ verified_count }}</p>
     </a>
-    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_verified_exact=0&is_submitted_exact=1" class="card" style="background-color: #FF9800; color: white;">
-        <h2>Partially Filled Forms</h2>
+    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_submitted__exact=False" class="card" style="background-color: #FF9800; color: white;">
+        <h2>Partially Filled Forms & Pending Applications</h2>
         <p>{{ partial_filled_count }}</p>
     </a>
-    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_verified_exact=0&is_submitted_exact=1" class="card" style="background-color: #F44336; color: white;">
-        <h2>Filled But Not Verified Forms</h2>
+    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_submitted__exact=True&is_verified__exact=False" class="card" style="background-color: #F44336; color: white;">
+        <h2>Filled But Not Verified Applications</h2>
         <p>{{ unverified_count }}</p>
     </a>
 </div>
