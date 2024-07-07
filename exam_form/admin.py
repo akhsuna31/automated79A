@@ -4,7 +4,8 @@ from .models import ExaminerApplication, Officer
 
 class ExaminerApplicationAdmin(admin.ModelAdmin):
     change_list_template = "admin/examinerapplication_changelist.html"
-    list_display = ('department_name', 'is_verified', 'is_submitted')  # Adjust as needed for individual listing
+    list_display = ('application_number', 'user', 'department_name', 'is_verified', 'is_submitted')  # Adjust as needed for individual listing
+    search_fields = ('user__username', 'department_name', 'application_number')
     actions = ['mark_as_verified', 'allow_edit']
 
     def mark_as_verified(self, request, queryset):
