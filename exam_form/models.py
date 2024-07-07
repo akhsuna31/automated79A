@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 from django.contrib.auth.models import User
 # Create your models here.
 
@@ -14,6 +14,8 @@ class ExaminerApplication(models.Model):
     mobile_phone = models.CharField(max_length=20)
     email = models.EmailField()
     activities_since = models.DateField(null=True, blank=True)
+
+    application_number = models.CharField(max_length=7, unique=True, null=True, blank=True)  # Add this line
 
     # Forensic Investigation Types
     computer_forensics = models.BooleanField(default=False)
@@ -59,6 +61,29 @@ class ExaminerApplication(models.Model):
 
     def __str__(self):
         return self.department_name
+
+    def generate_application_number(self):
+        latest_application = ExaminerApplication.objects.exclude(application_number__isnull=True).order_by('-application_number').first()
+        if latest_application:
+            last_number = int(latest_application.application_number[2:5])
+            last_suffix = int(latest_application.application_number[5:7])
+            if last_number == 999:
+                new_number = '001'
+                new_suffix = last_suffix + 1
+            else:
+                new_number = f'{last_number + 1:03d}'
+                new_suffix = last_suffix
+        else:
+            new_number = '001'
+            new_suffix = 24
+
+        return f'20{new_number}{new_suffix:02d}'
+
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        if not self.application_number:
+            self.application_number = self.generate_application_number()
+        super().save(*args, **kwargs)
 
 
 class Officer(models.Model):
