@@ -66,8 +66,16 @@ class ExaminerApplicationWizard(SessionWizardView):
         for form in form_list:
             data.update(form.cleaned_data)
 
-        application = ExaminerApplication.objects.update_or_create(user=user, defaults=data)[0]
-        application.is_submitted = True
+        # Ensure the application is not already submitted
+        application, created = ExaminerApplication.objects.update_or_create(user=user, defaults=data)
+        if created or not application.is_submitted:
+            application.is_submitted = True
+            # Generate and save the application number if it doesn't already exist
+            if not application.application_number:
+                application.application_number = application.generate_application_number()
+
+        #application = ExaminerApplication.objects.update_or_create(user=user, defaults=data)[0]
+        #application.is_submitted = True
         application.save()
 
         # Update counts for partial_filled and filled_not_verified
