@@ -42,7 +42,7 @@
             </div>
             <div class="card-body">
                 <h1 class="card-title" style="color: #000080;">Dashboard</h1>
-                <p class="card-text">Welcome to your dashboard. Use the form below to submit your examiner application.</p>
+                <p class="card-text">Welcome {{ user.username }} to your dashboard. Use the form below to submit your examiner application.</p>
                 <form id="examiner-application-form" method="post" enctype="multipart/form-data" action="{% url 'examiner_application' %}">
                     {% csrf_token %}
                     {{ form.as_p }}
@@ -55,6 +55,7 @@
 
                     <div class="application-details">
                         <h2>Application Details</h2>
+                        <p><strong>Application Number:</strong> {{ application.application_number }}</p>
                         <p><strong>Department Name:</strong> {{ application.department_name }}</p>
                         <p><strong>Address:</strong> {{ application.address }}</p>
                         <p><strong>Contact:</strong> {{ application.contact_details }}</p>
