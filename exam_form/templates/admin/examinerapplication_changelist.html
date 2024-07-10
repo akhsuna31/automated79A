@@ -2,10 +2,14 @@
 
 {% block content %}
 <style>
+    .dashboard-container {
+        display: flex;
+    }
     .dashboard-cards {
         display: flex;
         justify-content: space-around;
         margin-bottom: 20px;
+        flex: 1;
     }
     .card {
         background-color: #f7f7f7;
@@ -30,21 +34,57 @@
         transform: scale(1.05);
         cursor: pointer;
     }
+    .sidebar {
+        width: 200px;
+        margin-right: 20px;
+        border-right: 1px solid #ddd;
+        padding-right: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+    .sidebar h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+    .sidebar li {
+        margin-bottom: 10px;
+    }
 </style>
 
-<div class="dashboard-cards">
-    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_submitted__exact=True&is_verified__exact=True" class="card" style="background-color: #4CAF50; color: white;">
-        <h2>Total Filled & Verified Applications</h2>
-        <p>{{ verified_count }}</p>
-    </a>
-    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_submitted__exact=False" class="card" style="background-color: #FF9800; color: white;">
-        <h2>Partially Filled Forms & Pending Applications</h2>
-        <p>{{ partial_filled_count }}</p>
-    </a>
-    <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_submitted__exact=True&is_verified__exact=False" class="card" style="background-color: #F44336; color: white;">
-        <h2>Filled But Not Verified Applications</h2>
-        <p>{{ unverified_count }}</p>
-    </a>
+<div class="dashboard-container">
+    <!-- Sidebar for Officers -->
+    <div class="sidebar">
+        <h3>Officers</h3>
+        {% if officers %}
+        <ul>
+            {% for officer in officers %}
+            <li>{{ officer.name }} - {{ officer.rank }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+           <p>No officers found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-cards">
+        <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_submitted__exact=True&is_verified__exact=True" class="card" style="background-color: #4CAF50; color: white;">
+            <h2>Total Filled & Verified Applications</h2>
+            <p>{{ verified_count }}</p>
+        </a>
+        <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_submitted__exact=False" class="card" style="background-color: #FF9800; color: white;">
+            <h2>Partially Filled Forms & Pending Applications</h2>
+            <p>{{ partial_filled_count }}</p>
+        </a>
+        <a href="{% url 'admin:exam_form_examinerapplication_changelist' %}?is_submitted__exact=True&is_verified__exact=False" class="card" style="background-color: #F44336; color: white;">
+            <h2>Filled But Not Verified Applications</h2>
+            <p>{{ unverified_count }}</p>
+        </a>
+    </div>
 </div>
 
 {{ block.super }}
