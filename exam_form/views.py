@@ -126,12 +126,16 @@ def logout_view(request):
 
 @login_required(login_url="/login/")
 def dashboard_view(request):
+    #texts = ['W', 'e', 'l', 'c', 'o', 'm', 'e', ': )']
     try:
         application = ExaminerApplication.objects.get(user=request.user)
     except ExaminerApplication.DoesNotExist:
         application = None
 
-    return render(request, "exam_form/dashboard.html", {'application': application, 'user': request.user})
+    #texts = ["W", "e", "l", "c", "o", "m", "e", ":)"]
+    #text_range = range(len(texts))
+
+    return render(request, "exam_form/dashboard.html", {'application': application, 'user': request.user}) #'text_range': text_range
 
 @login_required(login_url="/login/")
 def form_submitted_view(request):
